@@ -50,7 +50,7 @@ namespace GroceryListOrganizer
             { "cumin", StoreArea.Aisles },
             { "tomato paste", StoreArea.Aisles },
             { "bags", StoreArea.Aisles },
-            { "emergen-C", StoreArea.Aisles },
+            { "emergen-c", StoreArea.Aisles },
             { "zuchini", StoreArea.Produce }
         };
 
@@ -96,17 +96,42 @@ namespace GroceryListOrganizer
 
         private static StoreArea DetermineStoreArea(string item)
         {
-            //First, see if the whole item is a key in the dictionary. If it is, stop, we've found our store area.
+            //Convert to lowercase. All dictionary keys are lower case
+            item = item.ToLower();
+
+            //See if the whole item is a key in the dictionary. If it is, stop, we've found our store area.
             var area = _knownItems.Where(i => i.Key.Equals(item)).Select(i => i.Value).FirstOrDefault();
             if (area != StoreArea.Unknown) return area;
 
             //If that didn't work, tokenize the item. See if the individual words in the item are in the dictionary
-            var tokenizedItemStrings = item.Split(new char[] { ' ' });
+            var tokenizedItemStrings = item.Split(' ');
 
             foreach(var s in tokenizedItemStrings)
             {
                 area = _knownItems.Where(i => i.Key.Equals(s)).Select(i => i.Value).FirstOrDefault();
                 if (area != StoreArea.Unknown) break;
+            }
+
+            //If we still haven't found it, depluralize the last token if possible, and try again. 
+            //We only try this with the last token because it is assumed that will be the pluralized word.
+            if (area == StoreArea.Unknown)
+            {
+                string depluralizedString = null;
+                if (tokenizedItemStrings.Last().EndsWith("es"))
+                {
+                    depluralizedString = tokenizedItemStrings.Last()
+                        .Substring(0, tokenizedItemStrings.Last().Length - 2);
+                }
+                else if (tokenizedItemStrings.Last().EndsWith("s"))
+                {
+                    depluralizedString = tokenizedItemStrings.Last()
+                        .Substring(0, tokenizedItemStrings.Last().Length - 1);
+                }
+
+                if (depluralizedString != null)
+                {
+                    area = _knownItems.Where(i => i.Key.Equals(depluralizedString)).Select(i => i.Value).FirstOrDefault();
+                }
             }
             return area;
         }
@@ -133,21 +158,27 @@ namespace GroceryListOrganizer
             //Writing out areas based on Cermak for now
             Console.WriteLine("Produce:");
             PrintList(_produce);
+            Console.WriteLine();
 
             Console.WriteLine("Bakery:");
             PrintList(_bakery);
+            Console.WriteLine();
 
             Console.WriteLine("Aisles:");
             PrintList(_aisles);
+            Console.WriteLine();
 
             Console.WriteLine("Meat:");
             PrintList(_meat);
+            Console.WriteLine();
 
             Console.WriteLine("Dairy:");
             PrintList(_dairy);
+            Console.WriteLine();
 
             Console.WriteLine("Deli:");
             PrintList(_deli);
+            Console.WriteLine(); 
 
             Console.WriteLine("Unknown items:");
             PrintList(_unknown);
