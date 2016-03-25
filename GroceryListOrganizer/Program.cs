@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System;   
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,19 +8,19 @@ namespace GroceryListOrganizer
 {
     class Program
     {
-        private static List<string> produce = new List<string>();
-        private static List<string> meat = new List<string>();
-        private static List<string> bakery = new List<string>();
-        private static List<string> deli = new List<string>();
-        private static List<string> dairy = new List<string>();
-        private static List<string> aisles = new List<string>();
-        private static List<string> unknown = new List<string>();
-        private static List<string> unsortedList = new List<string> { "milk", "jicama", "cherry tomatoes", "bell pepper", "cucumber", "zuchini", "celery", "2 small avocadoes", "1 med onion",
+        private static List<string> _produce = new List<string>();
+        private static List<string> _meat = new List<string>();
+        private static List<string> _bakery = new List<string>();
+        private static List<string> _deli = new List<string>();
+        private static List<string> _dairy = new List<string>();
+        private static List<string> _aisles = new List<string>();
+        private static List<string> _unknown = new List<string>();
+        private static List<string> _unsortedList = new List<string> { "milk", "jicama", "cherry tomatoes", "bell pepper", "cucumber", "zuchini", "celery", "2 small avocadoes", "1 med onion",
             "1 large red bell pepper", "fresh rosemary", "6 small red potatoes", "4c veg stock", "kale 1 bunch", "1 cup fava beans", "1 lb bowties", "1 c part-skim ricotta cheese",
-            "grated parmesan", "fresh mint", "28oz crushed tomatoes", "1 large onion", "2 lb ground lamb", "1 med onion", "ground cumin", "tomato paste in a tube", "garbage bags",
+            "grated parmesan", "fresh mint", "28 oz crushed tomatoes", "1 large onion", "2 lb ground lamb", "1 med onion", "ground cumin", "tomato paste in a tube", "garbage bags",
             "emergen-C"};
 
-        private static Dictionary<string, StoreArea> knownItems = new Dictionary<string, StoreArea>
+        private static Dictionary<string, StoreArea> _knownItems = new Dictionary<string, StoreArea>
         {
             { "milk",StoreArea.Dairy },
             { "jicama", StoreArea.Produce },
@@ -50,66 +50,68 @@ namespace GroceryListOrganizer
             { "cumin", StoreArea.Aisles },
             { "tomato paste", StoreArea.Aisles },
             { "bags", StoreArea.Aisles },
-            { "emergen-C", StoreArea.Aisles }
+            { "emergen-C", StoreArea.Aisles },
+            { "zuchini", StoreArea.Produce }
         };
 
         static void Main(string[] args)
         {
-            buildStoreAreaLists();
-            printOutContents(); 
+            BuildStoreAreaLists();
+            PrintOutContents(); 
 
         }
 
-        private static void buildStoreAreaLists()
+        private static void BuildStoreAreaLists()
         {
-            foreach (var item in unsortedList)
+            foreach (var item in _unsortedList)
             {
-                var storeArea = determineStoreArea(item);
+                var storeArea = DetermineStoreArea(item);
 
                 switch (storeArea)
                 {
                     case StoreArea.Produce:
-                        produce.Add(item);
+                        _produce.Add(item);
                         break;
                     case StoreArea.Meat:
-                        meat.Add(item);
+                        _meat.Add(item);
                         break;
                     case StoreArea.Bakery:
-                        bakery.Add(item);
+                        _bakery.Add(item);
                         break;
                     case StoreArea.Deli:
-                        deli.Add(item);
+                        _deli.Add(item);
                         break;
                     case StoreArea.Dairy:
-                        dairy.Add(item);
+                        _dairy.Add(item);
                         break;
                     case StoreArea.Aisles:
-                        aisles.Add(item);
+                        _aisles.Add(item);
                         break;
                     case StoreArea.Unknown:
-                        unknown.Add(item);
+                        _unknown.Add(item);
                         break;
                 }
             }
         }
 
-        private static StoreArea determineStoreArea(string item)
+        private static StoreArea DetermineStoreArea(string item)
         {
-            //Tokenize the item
-            var tokenizedItemStrings = item.Split(new char[] { ' ' });
+            //First, see if the whole item is a key in the dictionary. If it is, stop, we've found our store area.
+            var area = _knownItems.Where(i => i.Key.Equals(item)).Select(i => i.Value).FirstOrDefault();
+            if (area != StoreArea.Unknown) return area;
 
-            //Check against dictionary of known items in each area. If you get a hit on the key, get the value of StoreArea and return it. If it isn't found, return unknown.
-            var area = StoreArea.Unknown;
+            //If that didn't work, tokenize the item. See if the individual words in the item are in the dictionary
+            var tokenizedItemStrings = item.Split(new char[] { ' ' });
 
             foreach(var s in tokenizedItemStrings)
             {
-                knownItems.TryGetValue(item, out area);
+                area = _knownItems.Where(i => i.Key.Equals(s)).Select(i => i.Value).FirstOrDefault();
                 if (area != StoreArea.Unknown) break;
             }
             return area;
         }
 
-        private static void printOutContents()
+        private static void PrintOutContents()
         {
             /*
             Cermak:
@@ -130,28 +132,30 @@ namespace GroceryListOrganizer
 
             //Writing out areas based on Cermak for now
             Console.WriteLine("Produce:");
-            printList(produce);
+            PrintList(_produce);
 
             Console.WriteLine("Bakery:");
-            printList(bakery);
+            PrintList(_bakery);
 
             Console.WriteLine("Aisles:");
-            printList(aisles);
+            PrintList(_aisles);
 
             Console.WriteLine("Meat:");
-            printList(meat);
+            PrintList(_meat);
 
             Console.WriteLine("Dairy:");
-            printList(dairy);
+            PrintList(_dairy);
 
             Console.WriteLine("Deli:");
-            printList(deli);
+            PrintList(_deli);
+
             Console.WriteLine("Unknown items:");
-            printList(unknown);
+            PrintList(_unknown);
+
             Console.ReadLine();
         }
 
-        private static void printList(List<string> list)
+        private static void PrintList(List<string> list)
         {
             foreach(var item in list)
             {
