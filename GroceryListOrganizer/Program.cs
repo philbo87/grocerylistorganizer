@@ -15,10 +15,12 @@ namespace GroceryListOrganizer
         private static List<string> _dairy = new List<string>();
         private static List<string> _aisles = new List<string>();
         private static List<string> _unknown = new List<string>();
-        private static List<string> _unsortedList = new List<string> { "milk", "jicama", "cherry tomatoes", "bell pepper", "cucumber", "zuchini", "celery", "2 small avocadoes", "1 med onion",
-            "1 large red bell pepper", "fresh rosemary", "6 small red potatoes", "4c veg stock", "kale 1 bunch", "1 cup fava beans", "1 lb bowties", "1 c part-skim ricotta cheese",
-            "grated parmesan", "fresh mint", "28 oz crushed tomatoes", "1 large onion", "2 lb ground lamb", "1 med onion", "ground cumin", "tomato paste in a tube", "garbage bags",
-            "emergen-C"};
+        //private static List<string> _unsortedList = new List<string> { "milk", "jicama", "cherry tomatoes", "bell pepper", "cucumber", "zuchini", "celery", "2 small avocadoes", "1 med onion",
+        //    "1 large red bell pepper", "fresh rosemary", "6 small red potatoes", "4c veg stock", "kale 1 bunch", "1 cup fava beans", "1 lb bowties", "1 c part-skim ricotta cheese",
+        //    "grated parmesan", "fresh mint", "28 oz crushed tomatoes", "1 large onion", "2 lb ground lamb", "1 med onion", "ground cumin", "tomato paste in a tube", "garbage bags",
+        //    "emergen-C"};
+
+        private static List<string> _unsortedList = new List<string> { "apples", "bananas", "eggs", "3 small avocados", "bell pepper", "cucumber", "snap peas", "jicama", "cherry tomatoes", "fruit for oatmeal", "yoghurt", "celery", "2 28oz cans no salt added spicy diced-tomatoes", "raw cashews", "sliced-cheese for grilled cheese", "sliced-bread for grilled cheese"};
 
         private static Dictionary<string, StoreArea> _knownItems = new Dictionary<string, StoreArea>
         {
@@ -51,7 +53,18 @@ namespace GroceryListOrganizer
             { "tomato paste", StoreArea.Aisles },
             { "bags", StoreArea.Aisles },
             { "emergen-c", StoreArea.Aisles },
-            { "zuchini", StoreArea.Produce }
+            { "zucchini", StoreArea.Produce },
+            { "apple", StoreArea.Produce },//TODO: Depluralizing apples might make appl with our algorithm, which means I need to modify it to handle a special case potentially
+            { "apples", StoreArea.Produce },
+            { "banana", StoreArea.Produce },
+            { "eggs", StoreArea.Dairy },
+            { "snap peas", StoreArea.Produce },
+            { "fruit for oatmeal", StoreArea.Produce },
+            { "yoghurt", StoreArea.Dairy },
+            { "diced-tomatoes", StoreArea.Aisles }, //TODO make the algorithm handle partle token matches so I don't need a dash in diced-tomatoes
+            { "raw cashews", StoreArea.Produce },
+            { "sliced-cheese", StoreArea.Deli },
+            { "sliced-bread", StoreArea.Bakery }
         };
 
         static void Main(string[] args)
