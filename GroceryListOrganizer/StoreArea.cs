@@ -15,6 +15,8 @@ namespace GroceryListOrganizer
         Bakery,
         Deli,
         Dairy,
-        Aisles   
+        Aisles,
+        Frozen,
+        Seafood   
     }
 }
