@@ -24,7 +24,7 @@ namespace GroceryListOrganizer
 
         //private static List<string> _unsortedList = new List<string> { "apples", "bananas", "eggs", "3 small avocados", "bell pepper", "cucumber", "snap peas", "jicama", "cherry tomatoes", "fruit for oatmeal", "yoghurt", "celery", "2 28oz cans no salt added spicy diced-tomatoes", "raw cashews", "sliced-cheese for grilled cheese", "sliced-bread for grilled cheese"};
         //private static List<string> _unsortedList = new List<string> { "almonds", "hummus", "black beans", "1 bunch kale", "portabella mushrooms", "cilantro", "small cucumber", "3 limes", "2 tomatillos", "4 small avocadoes", "chicken", "mozzarella sticks", "english muffins", "bell pepper", "snap peas", "dryer sheets", "sliced-bread for grilled cheese"};
-        private static List<string> _unsortedList = new List<string> { "tissues", "eggs", "jicama", "cherry tomatoes", "celery", "bell pepper", "zucchini", "1.5 lbs raw shrimp", "2 small hot chili-peppers", "8 cups lower-sodium-chicken-broth", "medium amount bean-sprouts", "4 lbs chicken breasts", "8 oz chorizo", "1 small jar roasted-red-peppers", "english breakfast tea" };
+        private static List<string> _unsortedList = new List<string> { "tissues", "eggs", "jicama", "cherry tomatoes", "celery", "bell pepper", "zucchini", "1.5 lbs raw shrimp", "2 small hot chili-peppers", "8 cups lower-sodium-chicken-broth", "medium amount bean-sprouts", "4 lbs chicken breasts", "8 oz chorizo", "1 small jar roasted-red-peppers", "english breakfast tea", "apples", "bananas", "fruit for oatmeal" };
         private static Dictionary<string, StoreArea> _knownItems = new Dictionary<string, StoreArea>
         {
             { "milk",StoreArea.Dairy },
