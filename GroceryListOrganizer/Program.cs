@@ -32,14 +32,14 @@ namespace GroceryListOrganizer
             var items = new Dictionary<string, Item>();
             foreach(var groceryListEntry in _groceryList)
             {
-                var foundItem = TokenizeGroceryListEntryAndLookupItem(groceryListEntry);
+                var foundItem = LocateItemForGroceryListEntry(groceryListEntry);
                 items.Add(groceryListEntry, foundItem);
             }
 
             return items;
         }
 
-        private static Item TokenizeGroceryListEntryAndLookupItem(string groceryListItem)
+        private static Item LocateItemForGroceryListEntry(string groceryListItem)
         {
             //Convert to lowercase. All item names are stored as lower case.
             groceryListItem = groceryListItem.ToLower();
