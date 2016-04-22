@@ -8,8 +8,6 @@ namespace GroceryListOrganizer
 {
     public enum StoreArea
     {
-
-        Unknown,
         Produce,
         Meat,
         Bakery,
