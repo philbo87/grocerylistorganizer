@@ -71,5 +71,18 @@ namespace GroceryListOrganizer
             _items.Add(new Item("roasted-red-peppers", Store.Cermak, StoreArea.Aisles));
             _items.Add(new Item("tea", Store.Cermak, StoreArea.Aisles));
         }
+
+        public Item GetItemByName(string name)
+        {
+            foreach(var item in _items)
+            {
+                if (item.Name == name)
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
     }
 }
