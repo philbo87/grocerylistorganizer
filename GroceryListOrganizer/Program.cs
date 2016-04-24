@@ -8,15 +8,7 @@ namespace GroceryListOrganizer
 {
     class Program
     {
-        private static List<Item> _produce = new List<Item>();
-        private static List<Item> _meat = new List<Item>();
-        private static List<Item> _bakery = new List<Item>();
-        private static List<Item> _deli = new List<Item>();
-        private static List<Item> _dairy = new List<Item>();
-        private static List<Item> _aisles = new List<Item>();
-        private static List<Item> _frozen = new List<Item>();
-        private static List<Item> _seafood = new List<Item>();
-        private static List<Item> _unknown = new List<Item>();
+        
         private static List<string> _groceryList = new List<string> {"null", "tissues", "eggs", "jicama", "cherry tomatoes", "celery", "bell pepper", "zucchini", "1.5 lbs raw shrimp", "2 small hot chili-peppers", "8 cups lower-sodium-chicken-broth", "medium amount bean-sprouts", "4 lbs chicken breasts", "8 oz chorizo", "1 small jar roasted-red-peppers", "english breakfast tea", "apples", "bananas", "fruit for oatmeal" };
 
         private static DataAccess _dao;      
@@ -24,7 +16,7 @@ namespace GroceryListOrganizer
         {
             _dao = new DataAccess();
             var items = GetItemsForGroceryList();
-            //PrintOutContents(); 
+            PrintOutContents(items); 
         }
 
         private static Dictionary<string, Item> GetItemsForGroceryList()
@@ -78,69 +70,176 @@ namespace GroceryListOrganizer
 
             //If we return null at this point, we couldn't find this item. It will be handled as an unknown when printing.
             return foundItem;
-            
-
         }
 
-        //private static void PrintOutContents()
-        //{
-        //    /*
-        //    Cermak:
-        //    Produce
-        //    Bakery
-        //    Aisles
-        //    Meat
-        //    Dairy
-        //    Deli
-        //    Frozen
+        private static void PrintOutContents(Dictionary<string,Item> itemsToPrint)
+        {
+            List<string> cermakProduce = new List<string>();
+            List<string> cermakBakery = new List<string>();
+            List<string> cermakAisles = new List<string>();
+            List<string> cermakMeat = new List<string>();
+            List<string> cermakSeafood = new List<string>();
+            List<string> cermakDairy = new List<string>();
+            List<string> cermakDeli = new List<string>();
+            List<string> cermakFrozen = new List<string>();
 
-        //    Pick N Save Tosa:
-        //    Produce
-        //    Deli
-        //    Bakery
-        //    Meat
-        //    Aisles
-        //    Dairy
-        //    Frozen*/
+            List<string> pickNSaveProduce = new List<string>();
+            List<string> pickNSaveBakery = new List<string>();
+            List<string> pickNSaveAisles = new List<string>();
+            List<string> pickNSaveMeat = new List<string>();
+            List<string> pickNSaveSeafood = new List<string>();
+            List<string> pickNSaveDairy = new List<string>();
+            List<string> pickNSaveDeli = new List<string>();
+            List<string> pickNSaveFrozen = new List<string>();
 
-        //    //Writing out areas based on Cermak for now
-        //    Console.WriteLine("Produce:");
-        //    PrintList(_produce);
-        //    Console.WriteLine();
+            List<string> unknown = new List<string>();
 
-        //    Console.WriteLine("Bakery:");
-        //    PrintList(_bakery);
-        //    Console.WriteLine();
+            //TODO: For each store, build lists for each area. Print them in the order I would like.
+            foreach (var printableText in itemsToPrint.Keys)
+            {
+                Item item = null;
+                itemsToPrint.TryGetValue(printableText, out item);
+                if (item != null)
+                {
+                    if(item.PreferredStore == Store.Cermak)
+                    {
+                        switch (item.AreaInStore)
+                        {
+                            case StoreArea.Aisles:
+                                cermakAisles.Add(printableText);
+                                break;
+                            case StoreArea.Bakery:
+                                cermakBakery.Add(printableText);
+                                break;
+                            case StoreArea.Dairy:
+                                cermakDairy.Add(printableText);
+                                break;
+                            case StoreArea.Deli:
+                                cermakDeli.Add(printableText);
+                                break;
+                            case StoreArea.Frozen:
+                                cermakFrozen.Add(printableText);
+                                break;
+                            case StoreArea.Meat:
+                                cermakMeat.Add(printableText);
+                                break;
+                            case StoreArea.Produce:
+                                cermakProduce.Add(printableText);
+                                break;
+                            case StoreArea.Seafood:
+                                cermakSeafood.Add(printableText);
+                                break;
+                        }
+                    }
+                    else if(item.PreferredStore == Store.PickNSave)
+                    {
+                        switch (item.AreaInStore)
+                        {
+                            case StoreArea.Aisles:
+                                pickNSaveAisles.Add(printableText);
+                                break;
+                            case StoreArea.Bakery:
+                                pickNSaveBakery.Add(printableText);
+                                break;
+                            case StoreArea.Dairy:
+                                pickNSaveDairy.Add(printableText);
+                                break;
+                            case StoreArea.Deli:
+                                pickNSaveDeli.Add(printableText);
+                                break;
+                            case StoreArea.Frozen:
+                                pickNSaveFrozen.Add(printableText);
+                                break;
+                            case StoreArea.Meat:
+                                pickNSaveMeat.Add(printableText);
+                                break;
+                            case StoreArea.Produce:
+                                pickNSaveProduce.Add(printableText);
+                                break;
+                            case StoreArea.Seafood:
+                                pickNSaveSeafood.Add(printableText);
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    //Item was null. We don't know about this. Add it to the unknown list
+                    unknown.Add(printableText);
+                }
+            }
 
-        //    Console.WriteLine("Aisles:");
-        //    PrintList(_aisles);
-        //    Console.WriteLine();
+            Console.WriteLine("Cermak Fresh Market Items:");
+            Console.WriteLine("Produce:");
+            PrintList(cermakProduce);
+            Console.WriteLine();
 
-        //    Console.WriteLine("Meat:");
-        //    PrintList(_meat);
-        //    Console.WriteLine();
+            Console.WriteLine("Bakery:");
+            PrintList(cermakBakery);
+            Console.WriteLine();
 
-        //    Console.WriteLine("Seafood:");
-        //    PrintList(_seafood);
-        //    Console.WriteLine();
+            Console.WriteLine("Aisles:");
+            PrintList(cermakAisles);
+            Console.WriteLine();
 
-        //    Console.WriteLine("Dairy:");
-        //    PrintList(_dairy);
-        //    Console.WriteLine();
+            Console.WriteLine("Meat:");
+            PrintList(cermakMeat);
+            Console.WriteLine();
 
-        //    Console.WriteLine("Deli:");
-        //    PrintList(_deli);
-        //    Console.WriteLine();
+            Console.WriteLine("Seafood:");
+            PrintList(cermakSeafood);
+            Console.WriteLine();
 
-        //    Console.WriteLine("Frozen:");
-        //    PrintList(_frozen);
-        //    Console.WriteLine();
+            Console.WriteLine("Dairy:");
+            PrintList(cermakDairy);
+            Console.WriteLine();
 
-        //    Console.WriteLine("Unknown items:");
-        //    PrintList(_unknown);
+            Console.WriteLine("Deli:");
+            PrintList(cermakDeli);
+            Console.WriteLine();
 
-        //    Console.ReadLine();
-        //}
+            Console.WriteLine("Frozen:");
+            PrintList(cermakFrozen);
+            Console.WriteLine();
+
+            Console.WriteLine("Pick N Save Items:");
+            Console.WriteLine("Produce:");
+            PrintList(pickNSaveProduce);
+            Console.WriteLine();
+
+            Console.WriteLine("Bakery:");
+            PrintList(pickNSaveBakery);
+            Console.WriteLine();
+
+            Console.WriteLine("Deli:");
+            PrintList(pickNSaveDeli);
+            Console.WriteLine();
+
+            Console.WriteLine("Seafood:");
+            PrintList(pickNSaveSeafood);
+            Console.WriteLine();
+
+            Console.WriteLine("Meat:");
+            PrintList(pickNSaveMeat);
+            Console.WriteLine();
+
+            Console.WriteLine("Aisles:");
+            PrintList(pickNSaveAisles);
+            Console.WriteLine();
+
+            Console.WriteLine("Dairy:");
+            PrintList(pickNSaveDairy);
+            Console.WriteLine();
+
+            Console.WriteLine("Frozen:");
+            PrintList(pickNSaveFrozen);
+            Console.WriteLine();
+
+            Console.WriteLine("Unknown items:");
+            PrintList(unknown);
+
+            Console.ReadLine();
+        }
 
         private static void PrintList(List<string> list)
         {
