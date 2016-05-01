@@ -9,7 +9,7 @@ namespace GroceryListOrganizer
     class Program
     {
         
-        private static List<string> _groceryList = new List<string> {"null", "tissues", "eggs", "jicama", "cherry tomatoes", "celery", "bell pepper", "zucchini", "1.5 lbs raw shrimp", "2 small hot chili-peppers", "8 cups lower-sodium-chicken-broth", "medium amount bean-sprouts", "4 lbs chicken breasts", "8 oz chorizo", "1 small jar roasted-red-peppers", "english breakfast tea", "apples", "bananas", "fruit for oatmeal" };
+        private static List<string> _groceryList = new List<string> {"apples","null", "tissues", "eggs", "jicama", "cherry tomatoes", "celery", "bell pepper", "zucchini", "1.5 lbs raw shrimp", "2 small hot chili-peppers", "8 cups lower-sodium-chicken-broth", "medium amount bean-sprouts", "4 lbs chicken breasts", "8 oz chorizo", "1 small jar roasted-red-peppers", "english breakfast tea", "bananas", "fruit for oatmeal" };
 
         private static DataAccess _dao;      
         static void Main(string[] args)
@@ -66,7 +66,14 @@ namespace GroceryListOrganizer
             if (depluralizedString != null)
             {
                 foundItem = _dao.GetItemByName(depluralizedString);
+                if (foundItem != null) return foundItem;
+
+                //Special case: Sometimes a depluralized string isn't a word any more if it ended in -es. For example: apples -> appl. Re-add an e and see if we get a hit.
+                depluralizedString += "e";
+                foundItem = _dao.GetItemByName(depluralizedString);
             }
+
+
 
             //If we return null at this point, we couldn't find this item. It will be handled as an unknown when printing.
             return foundItem;
