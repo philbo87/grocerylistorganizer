@@ -8,11 +8,12 @@ namespace GroceryListOrganizer
 {
     public class Item
     {
-        public Item(string name, Store preferredStore, StoreArea areaInStore)
+        public Item(string name, Store preferredStore, StoreArea areaInStore, int score)
         {
             Name = name;
             PreferredStore = preferredStore;
             AreaInStore = areaInStore;
+            Score = score;
         }
 
         public string Name { get; set; }
@@ -20,5 +21,7 @@ namespace GroceryListOrganizer
         public Store PreferredStore { get; set; }
 
         public StoreArea AreaInStore { get; set; }
+
+        public int Score { get; set; }
     }
 }
