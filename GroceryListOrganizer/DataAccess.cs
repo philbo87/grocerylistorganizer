@@ -24,7 +24,7 @@ namespace GroceryListOrganizer
             _items.Add(new Item("fresh", Store.Cermak, StoreArea.Produce, 2));
             _items.Add(new Item("rosemary", Store.Cermak, StoreArea.Produce, 1));
             _items.Add(new Item("potato", Store.Cermak, StoreArea.Produce, 1));
-            _items.Add(new Item("stock", Store.Cermak, StoreArea.Aisles, 1));
+            _items.Add(new Item("stock", Store.Cermak, StoreArea.Aisles, 2));
             _items.Add(new Item("kale", Store.Cermak, StoreArea.Produce, 1));
             _items.Add(new Item("beans", Store.Cermak, StoreArea.Aisles, 1));
             _items.Add(new Item("bowties", Store.Cermak, StoreArea.Aisles, 1));

@@ -9,7 +9,7 @@ namespace GroceryListOrganizer
     class Program
     {
         
-        private static List<string> _groceryList = new List<string> {"apples","null", "tissues", "eggs", "jicama", "cherry tomatoes", "celery", "bell pepper", "zucchini", "1.5 lbs raw shrimp", "2 small hot chili-peppers", "8 cups lower-sodium-chicken-broth", "medium amount bean-sprouts", "4 lbs chicken breasts", "8 oz chorizo", "1 small jar roasted-red-peppers", "english breakfast tea", "bananas", "fruit for oatmeal" };
+        private static List<string> _groceryList = new List<string> {"8 oz chorizo"};
 
         private static DataAccess _dao;      
         static void Main(string[] args)
@@ -24,7 +24,7 @@ namespace GroceryListOrganizer
             var items = new Dictionary<string, Item>();
             foreach(var groceryListEntry in _groceryList)
             {
-                var foundItem = LocateItemForGroceryListEntry(groceryListEntry);
+                var foundItem = LocateItemForGroceryListEntry(groceryListEntry.ToLower());
                 items.Add(groceryListEntry, foundItem);
             }
 
@@ -33,21 +33,16 @@ namespace GroceryListOrganizer
 
         private static Item LocateItemForGroceryListEntry(string groceryListItem)
         {
-            //Convert to lowercase. All item names are stored as lower case.
-            groceryListItem = groceryListItem.ToLower();
-
             Item foundItem = null;
             
             foundItem = _dao.GetItemByName(groceryListItem);
             if (foundItem != null) return foundItem;
-          
-            //If that didn't work, tokenize the item. See if the individual words in the item are in the dictionary
+
+            //If that didn't work, tokenize the item, and try to see if the tokenized words in the list item are in the data layer.
             var tokenizedItemStrings = groceryListItem.Split(' ');
-            foreach (var tokenizedItemString in tokenizedItemStrings)
-            {
-                foundItem = _dao.GetItemByName(tokenizedItemString);
-                if (foundItem != null) return foundItem;
-            }
+
+            foundItem = LookupItemFromTokenizedStrings(tokenizedItemStrings);
+            if (foundItem != null) return foundItem;
 
             //If we still haven't found it, depluralize the last token if possible, and try again. 
             //We only try this with the last token because it is assumed that will be the pluralized word.
@@ -72,10 +67,40 @@ namespace GroceryListOrganizer
                 depluralizedString += "e";
                 foundItem = _dao.GetItemByName(depluralizedString);
             }
-
-
-
+  
             //If we return null at this point, we couldn't find this item. It will be handled as an unknown when printing.
+            return foundItem;
+        }
+
+        private static Item LookupItemFromTokenizedStrings(ICollection<string> tokenizedItemStrings)
+        {
+            Item foundItem = null;
+            var foundItemsFromTokenizedStrings = new List<Item>();
+            foreach (var tokenizedItemString in tokenizedItemStrings)
+            {
+                var retrievedItem = _dao.GetItemByName(tokenizedItemString);
+                if (retrievedItem != null)
+                {
+                    foundItemsFromTokenizedStrings.Add(retrievedItem);
+                }
+            }
+
+            if (foundItemsFromTokenizedStrings.Count > 0)
+            {
+                //Find the item with the highest score
+                foreach (var item in foundItemsFromTokenizedStrings)
+                {
+                    if (foundItem == null)
+                    {
+                        foundItem = item;
+                    }
+                    else if (item.Score < foundItem.Score)
+                    {
+                        foundItem = item;
+                    }
+                }
+            }
+
             return foundItem;
         }
 
