@@ -8,8 +8,7 @@ namespace GroceryListOrganizer
 {
     class Program
     {
-        
-        private static List<string> _groceryList = new List<string> {"8 oz chorizo"};
+        private static List<string> _groceryList = new List<string> {};
 
         private static DataAccess _dao;      
         static void Main(string[] args)
@@ -46,16 +45,25 @@ namespace GroceryListOrganizer
 
             //If we still haven't found it, depluralize the last token if possible, and try again. 
             //We only try this with the last token because it is assumed that will be the pluralized word.
+            foundItem = DepluralizeStringAndLookForItem(tokenizedItemStrings.Last());
+  
+            //If we return null at this point, we couldn't find this item. It will be handled as an unknown when printing.
+            return foundItem;
+        }
+
+        private static Item DepluralizeStringAndLookForItem(string lastStringInListItem)
+        {
+            Item foundItem = null;
             string depluralizedString = null;
-            if (tokenizedItemStrings.Last().EndsWith("es"))
+            if (lastStringInListItem.EndsWith("es"))
             {
-                depluralizedString = tokenizedItemStrings.Last()
-                    .Substring(0, tokenizedItemStrings.Last().Length - 2);
+                depluralizedString = lastStringInListItem
+                    .Substring(0, lastStringInListItem.Length - 2);
             }
-            else if (tokenizedItemStrings.Last().EndsWith("s"))
+            else if (lastStringInListItem.EndsWith("s"))
             {
-                depluralizedString = tokenizedItemStrings.Last()
-                    .Substring(0, tokenizedItemStrings.Last().Length - 1);
+                depluralizedString = lastStringInListItem
+                    .Substring(0, lastStringInListItem.Length - 1);
             }
 
             if (depluralizedString != null)
@@ -67,8 +75,7 @@ namespace GroceryListOrganizer
                 depluralizedString += "e";
                 foundItem = _dao.GetItemByName(depluralizedString);
             }
-  
-            //If we return null at this point, we couldn't find this item. It will be handled as an unknown when printing.
+
             return foundItem;
         }
 
