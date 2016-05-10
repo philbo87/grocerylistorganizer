@@ -8,9 +8,9 @@ namespace GroceryListOrganizer
 {
     class Program
     {
-        private static List<string> _groceryList = new List<string> {};
+        private static List<string> _groceryList = new List<string> {"milk","bell pepper","cucumber","cherry tomatoes","1 large onion","soba noodles","napa cabbage","1 cup bean-sprouts","cilantro","12.3 oz firm tofu","1 fennel-bulb","28 oz can diced-tomatoes","2 15 oz cans chickpeas","2 links hot italian-sausage","frozen vegetables"};
+        private static DataAccess _dao;
 
-        private static DataAccess _dao;      
         static void Main(string[] args)
         {
             _dao = new DataAccess();

@@ -71,6 +71,16 @@ namespace GroceryListOrganizer
             _items.Add(new Item("roasted-red-peppers", Store.Cermak, StoreArea.Aisles, 1));
             _items.Add(new Item("tea", Store.Cermak, StoreArea.Aisles, 1));
             _items.Add(new Item("chorizo", Store.Cermak, StoreArea.Meat, 1));
+            _items.Add(new Item("soba noodles", Store.Cermak, StoreArea.Aisles, 1));
+            _items.Add(new Item("tofu", Store.Cermak, StoreArea.Aisles, 1));
+            _items.Add(new Item("chickpeas", Store.Cermak, StoreArea.Aisles, 1));
+            _items.Add(new Item("italian-sausage", Store.Cermak, StoreArea.Meat, 1));
+            _items.Add(new Item("frozen vegetables", Store.PickNSave, StoreArea.Frozen, 1));
+            _items.Add(new Item("napa cabbage", Store.Cermak, StoreArea.Produce, 1));
+            _items.Add(new Item("bean-sprouts", Store.Cermak, StoreArea.Produce, 1));
+            _items.Add(new Item("fennel-bulb", Store.Cermak, StoreArea.Produce, 1));
+
+
 
         }
 
