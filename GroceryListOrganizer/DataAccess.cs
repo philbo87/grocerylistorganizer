@@ -45,7 +45,7 @@ namespace GroceryListOrganizer
             _items.Add(new Item("apples", Store.Cermak, StoreArea.Produce, 1));
             _items.Add(new Item("banana", Store.Cermak, StoreArea.Produce, 1));
             _items.Add(new Item("eggs", Store.Cermak, StoreArea.Dairy, 1));
-            _items.Add(new Item("snap peas", Store.PickNSave, StoreArea.Produce, 1));
+            _items.Add(new Item("snap-peas", Store.PickNSave, StoreArea.Produce, 1));
             _items.Add(new Item("fruit for oatmeal", Store.Cermak, StoreArea.Produce, 1));
             _items.Add(new Item("yoghurt", Store.Cermak, StoreArea.Dairy, 1));
             _items.Add(new Item("diced-tomatoes", Store.Cermak, StoreArea.Aisles, 1));
@@ -79,9 +79,28 @@ namespace GroceryListOrganizer
             _items.Add(new Item("napa cabbage", Store.Cermak, StoreArea.Produce, 1));
             _items.Add(new Item("bean-sprouts", Store.Cermak, StoreArea.Produce, 1));
             _items.Add(new Item("fennel-bulb", Store.Cermak, StoreArea.Produce, 1));
-
-
-
+            _items.Add(new Item("steel cut oats", Store.PickNSave, StoreArea.Aisles, 1));
+            _items.Add(new Item("hazel nuts", Store.Cermak, StoreArea.Produce, 1));
+            _items.Add(new Item("brazil nuts", Store.Cermak, StoreArea.Produce, 1));
+            _items.Add(new Item("bacon", Store.PickNSave, StoreArea.Meat, 1));
+            _items.Add(new Item("scallions", Store.Cermak, StoreArea.Produce, 1));
+            _items.Add(new Item("spinach", Store.Cermak, StoreArea.Produce, 1));
+            _items.Add(new Item("hazel nuts", Store.Cermak, StoreArea.Produce, 1));
+            _items.Add(new Item("pork", Store.Cermak, StoreArea.Meat, 2));
+            _items.Add(new Item("buns", Store.Cermak, StoreArea.Bakery, 1));
+            _items.Add(new Item("spaghetti sauce", Store.PickNSave, StoreArea.Aisles, 1));
+            _items.Add(new Item("bowtie pasta", Store.Cermak, StoreArea.Aisles, 1));
+            _items.Add(new Item("frozen garlic bread", Store.PickNSave, StoreArea.Frozen, 1));
+            _items.Add(new Item("brown sugar", Store.Cermak, StoreArea.Aisles, 1));
+            _items.Add(new Item("feta cheese", Store.PickNSave, StoreArea.Dairy, 1));
+            _items.Add(new Item("yellow squash", Store.Cermak, StoreArea.Produce, 1));
+            _items.Add(new Item("arborio rice", Store.Cermak, StoreArea.Aisles, 1));
+            _items.Add(new Item("grated pecorino romano cheese", Store.PickNSave, StoreArea.Dairy, 1));
+            _items.Add(new Item("chives", Store.Cermak, StoreArea.Produce, 1));
+            _items.Add(new Item("radishes", Store.Cermak, StoreArea.Produce, 1));
+            _items.Add(new Item("carrots", Store.Cermak, StoreArea.Produce, 1));
+            _items.Add(new Item("broth", Store.Cermak, StoreArea.Aisles, 2));
+            _items.Add(new Item("lemon", Store.Cermak, StoreArea.Produce, 1));
         }
 
         public Item GetItemByName(string name)
