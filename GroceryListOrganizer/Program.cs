@@ -3,19 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace GroceryListOrganizer
 {
     class Program
     {
-        private static List<string> _groceryList = new List<string> {"milk","bell pepper","cucumber","cherry tomatoes","1 large onion","soba noodles","napa cabbage","1 cup bean-sprouts","cilantro","12.3 oz firm tofu","1 fennel-bulb","28 oz can diced-tomatoes","2 15 oz cans chickpeas","2 links hot italian-sausage","frozen vegetables"};
+        private static readonly List<string> _groceryList = new List<string>();
         private static DataAccess _dao;
 
         static void Main(string[] args)
         {
+            AskForList();
             _dao = new DataAccess();
             var items = GetItemsForGroceryList();
             PrintOutContents(items); 
+        }
+
+        private static void AskForList()
+        {
+            Console.WriteLine("Welcome to Grocery List Organizer.");
+            Console.WriteLine("Please enter your items. Enter sort to print the list.");
+
+            string input = null;
+            while (input != "sort")
+            {
+                input = Console.ReadLine();
+                if (input != "sort")
+                {
+                    _groceryList.Add(input);
+                }
+            }
+            Console.Clear();
         }
 
         private static Dictionary<string, Item> GetItemsForGroceryList()
