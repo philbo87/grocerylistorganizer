@@ -46,8 +46,9 @@ namespace GroceryListOrganizer
             _items.Add(new Item("banana", Store.Cermak, StoreArea.Produce, 1));
             _items.Add(new Item("eggs", Store.Cermak, StoreArea.Dairy, 1));
             _items.Add(new Item("snap-peas", Store.PickNSave, StoreArea.Produce, 1));
+            _items.Add(new Item("snap peas", Store.PickNSave, StoreArea.Produce, 1));
             _items.Add(new Item("fruit for oatmeal", Store.Cermak, StoreArea.Produce, 1));
-            _items.Add(new Item("yoghurt", Store.Cermak, StoreArea.Dairy, 1));
+            _items.Add(new Item("yogurt", Store.Cermak, StoreArea.Dairy, 1));
             _items.Add(new Item("diced-tomatoes", Store.Cermak, StoreArea.Aisles, 1));
             _items.Add(new Item("raw cashews", Store.Cermak, StoreArea.Produce, 1));
             _items.Add(new Item("sliced-cheese", Store.Cermak, StoreArea.Deli, 1));
@@ -101,6 +102,12 @@ namespace GroceryListOrganizer
             _items.Add(new Item("carrots", Store.Cermak, StoreArea.Produce, 1));
             _items.Add(new Item("broth", Store.Cermak, StoreArea.Aisles, 2));
             _items.Add(new Item("lemon", Store.Cermak, StoreArea.Produce, 1));
+            _items.Add(new Item("extra sharp cheddar cheese sticks", Store.PickNSave, StoreArea.Dairy, 1));
+            _items.Add(new Item("mozzarella cheese sticks", Store.PickNSave, StoreArea.Dairy, 1));
+            _items.Add(new Item("sour cream", Store.Cermak, StoreArea.Dairy, 1));
+            _items.Add(new Item("papaya", Store.Cermak, StoreArea.Produce,  1));
+            _items.Add(new Item("pretzel thins", Store.Cermak, StoreArea.Aisles, 1));
+            _items.Add(new Item("poblano pepper", Store.Cermak, StoreArea.Produce, 1));
         }
 
         public Item GetItemByName(string name)
